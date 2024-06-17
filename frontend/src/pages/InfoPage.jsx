@@ -1,8 +1,12 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Breadcrumbs,
   Button,
   Container,
+  Divider,
   FormControl,
   Grid,
   Link,
@@ -18,6 +22,11 @@ import { CiCreditCard1 } from "react-icons/ci";
 import { FaCcVisa } from "react-icons/fa";
 import { FaCcMastercard } from "react-icons/fa6";
 import { FaMobileScreenButton } from "react-icons/fa6";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { IoHammerOutline } from "react-icons/io5";
+import { MdOutlineMemory } from "react-icons/md";
+import { IoPhonePortrait } from "react-icons/io5";
+
 
 const labels = {
   0.5: "0.5",
@@ -53,15 +62,58 @@ const InfoPage = () => {
       </Box>
       <Paper sx={{ borderRadius: "12px", p: 2 }}>
         <Grid container spacing={5} direction={"row"}>
-          <Grid item xl={7.5}>
+          <Grid item xl={8}>
             <Grid container direction={"column"}>
               <Grid item>
                 <img src="../../img_phone.jpg" width={750} height={500} />
               </Grid>
-              <Grid item>sss</Grid>
+              <Divider sx={{ mt: 5 }} />
+              <Grid item>
+                <Accordion sx={{ boxShadow: "none" }}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    sx={{ fontSize: "1.2rem" }}
+                  >
+                    Description:
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                        <Box display="flex" alignItems="center" >
+                          <FaMobileScreenButton style={{ marginRight: 8, fontSize:"20px" }} />
+                          <Typography>Brand : Honor</Typography>
+                        </Box>
+                        <Box display="flex" alignItems="center" mt={2}>
+                          <IoHammerOutline style={{ marginRight: 8 }} />
+                          <Typography>material : titanium</Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xs={6}>
+                      <Box display="flex" alignItems="center" >
+                          <MdOutlineMemory style={{ marginRight: 8 }} />
+                          <Typography>Memory : 256Gb</Typography>
+                        </Box>
+                        <Box display="flex" alignItems="center" mt={2}>
+                          <IoPhonePortrait style={{ marginRight: 8 }} />
+                          <Typography>Camera : 18 Mpx</Typography>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion sx={{ boxShadow: "none" }}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel2-content"
+                  >
+                    Accordion 2
+                  </AccordionSummary>
+                  <AccordionDetails>asdasd</AccordionDetails>
+                </Accordion>
+              </Grid>
             </Grid>
           </Grid>
-          <Grid item xl={4.5}>
+          <Grid item xl={4}>
             <Grid container direction={"column"}>
               <Grid item>
                 <Paper sx={{ borderRadius: "12px", p: 2 }}>
@@ -170,10 +222,9 @@ const InfoPage = () => {
                         47
                       </strong>
                     </Box>
-                    <FormControl sx={{ mt: 1 }} fullWidth>
+                    <FormControl sx={{ py: 3 }} fullWidth>
                       <Select
                         labelId="select-size-label"
-                        id="select-size"
                         fullWidth
                         sx={{ borderRadius: ".375em" }}
                       >
@@ -191,13 +242,12 @@ const InfoPage = () => {
                         </Typography>
                       </Box>
                     </FormControl>
-                    <Box display={"flex"} py={4}>
-                      <Typography>
-                        Quantity:
-                        </Typography>
-                        un select
-                    </Box>
-                    <Button variant="contained">Buy Now</Button>
+                    <Button
+                      variant="contained"
+                      sx={{ py: 1.5, textTransform: "none" }}
+                    >
+                      Buy Now
+                    </Button>
                   </Stack>
                 </Paper>
               </Grid>
