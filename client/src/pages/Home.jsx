@@ -27,7 +27,7 @@ const Home = () => {
         <Typography variant="h4" py={4}>
           Top Sellers of the Week
         </Typography>
-        <Carousels responsive={responsive} swipeable>
+        <Carousels responsive={responsive} >
           <Card sx={{ maxWidth: 350 }}>
             <CardMedia
               sx={{ height: 300 }}

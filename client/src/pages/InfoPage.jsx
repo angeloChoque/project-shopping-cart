@@ -26,7 +26,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { IoHammerOutline } from "react-icons/io5";
 import { MdOutlineMemory } from "react-icons/md";
 import { IoPhonePortrait } from "react-icons/io5";
-
+import { CiBatteryFull } from "react-icons/ci";
+import { IoIosFingerPrint } from "react-icons/io";
+import { useEffect, useRef, useState } from "react";
 
 const labels = {
   0.5: "0.5",
@@ -43,32 +45,98 @@ const labels = {
 
 const InfoPage = () => {
   const value = 3.5;
+  const [imageHeight, setImageHeight] = useState(0);
+  const imgRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const windowWidth = window.innerWidth;
+      // Adjust this ratio according to your image's aspect ratio
+      const aspectRatio = 16 / 9; // Example aspect ratio (width:height)
+      // Calculate the height based on a percentage of the window width
+      const calculatedWidth = Math.min(700, windowWidth * 0.8); // Max width of 700px or 80% of window width
+      const calculatedHeight = calculatedWidth / aspectRatio;
+      setImageHeight(calculatedHeight);
+    };
+
+    handleResize(); // Initial call
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <Container>
       <Box mb={6} mt={2}>
         <Breadcrumbs aria-label="breadcrumb">
           <Link underline="hover" href="/">
-            MUI
+            Shop
           </Link>
-          <Link
-            underline="hover"
-            href="/material-ui/getting-started/installation/"
-          >
-            Core
+          <Link underline="hover" href="/">
+            Phone
           </Link>
-          <Typography color="text.primary">Adidas</Typography>
+          <Typography color="text.primary">Honor 50</Typography>
         </Breadcrumbs>
       </Box>
       <Paper sx={{ borderRadius: "12px", p: 2 }}>
         <Grid container spacing={5} direction={"row"}>
-          <Grid item xl={8}>
+          <Grid item xs={12} md={7.5}>
             <Grid container direction={"column"}>
-              <Grid item>
-                <img src="../../img_phone.jpg" width={750} height={500} />
+              <Grid item xs={12}>
+                <img
+                  ref={imgRef}
+                  src="../../img_phone.jpg"
+                  style={{
+                    maxWidth: "100%",
+                    height: imageHeight,
+                    objectFit: "cover",
+                  }}
+                />
               </Grid>
               <Divider sx={{ mt: 5 }} />
-              <Grid item>
+              <Grid item xs={12}>
+                <Accordion sx={{ boxShadow: "none" }}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    sx={{ fontSize: "1.2rem" }}
+                  >
+                    Product Features:
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12} xl={6}>
+                        <Box display="flex" alignItems="center">
+                          <FaMobileScreenButton
+                            style={{ marginRight: 8, fontSize: "20px" }}
+                          />
+                          <Typography>Brand : Honor</Typography>
+                        </Box>
+                        <Box display="flex" alignItems="center" mt={2}>
+                          <IoHammerOutline style={{ marginRight: 8 }} />
+                          <Typography>material : titanium</Typography>
+                        </Box>
+                        <Box display="flex" alignItems="center" mt={2}>
+                          <IoIosFingerPrint style={{ marginRight: 8 }} />
+                          <Typography>Fingerprint Sensor</Typography>
+                        </Box>
+                      </Grid>
+                      <Grid item xs={12} xl={6}>
+                        <Box display="flex" alignItems="center">
+                          <MdOutlineMemory style={{ marginRight: 8 }} />
+                          <Typography>Memory : 256Gb</Typography>
+                        </Box>
+                        <Box display="flex" alignItems="center" mt={2}>
+                          <IoPhonePortrait style={{ marginRight: 8 }} />
+                          <Typography>Camera : 18 Mpx</Typography>
+                        </Box>
+                        <Box display="flex" alignItems="center" mt={2}>
+                          <CiBatteryFull style={{ marginRight: 8 }} />
+                          <Typography>Battery : 4300mAh</Typography>
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </AccordionDetails>
+                </Accordion>
+                {/* <Divider /> */}
                 <Accordion sx={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -77,43 +145,23 @@ const InfoPage = () => {
                     Description:
                   </AccordionSummary>
                   <AccordionDetails>
-                    <Grid container spacing={2}>
-                      <Grid item xs={6}>
-                        <Box display="flex" alignItems="center" >
-                          <FaMobileScreenButton style={{ marginRight: 8, fontSize:"20px" }} />
-                          <Typography>Brand : Honor</Typography>
-                        </Box>
-                        <Box display="flex" alignItems="center" mt={2}>
-                          <IoHammerOutline style={{ marginRight: 8 }} />
-                          <Typography>material : titanium</Typography>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={6}>
-                      <Box display="flex" alignItems="center" >
-                          <MdOutlineMemory style={{ marginRight: 8 }} />
-                          <Typography>Memory : 256Gb</Typography>
-                        </Box>
-                        <Box display="flex" alignItems="center" mt={2}>
-                          <IoPhonePortrait style={{ marginRight: 8 }} />
-                          <Typography>Camera : 18 Mpx</Typography>
-                        </Box>
-                      </Grid>
-                    </Grid>
+                    Honor 50 - Sleek Design, Powerful Performance. Upgrade your
+                    smartphone experience with the stunning Honor 50. Featuring
+                    a 6.57-inch curved OLED display with a 120Hz refresh rate,
+                    vibrant colors, and smooth visuals. Powered by the Qualcomm
+                    Snapdragon 778G processor for fast performance. Capture
+                    life&apos;s moments with the 108MP quad-camera system. The
+                    32MP front camera is perfect for high-quality selfies and
+                    video calls. With a 4300mAh battery and 66W fast charging,
+                    stay powered up all day. The Honor 50 boasts 8GB of RAM and
+                    128GB of storage, providing ample space for apps, photos,
+                    and videos.
                   </AccordionDetails>
-                </Accordion>
-                <Accordion sx={{ boxShadow: "none" }}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel2-content"
-                  >
-                    Accordion 2
-                  </AccordionSummary>
-                  <AccordionDetails>asdasd</AccordionDetails>
                 </Accordion>
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xl={4}>
+          <Grid item xs={12} md={4.5}>
             <Grid container direction={"column"}>
               <Grid item>
                 <Paper sx={{ borderRadius: "12px", p: 2 }}>
