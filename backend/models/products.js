@@ -31,6 +31,26 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    Material: {
+      type: SchemaTypes.String,
+      trim: true,
+    },
+    FingerprintSensor: {
+      type: SchemaTypes.Boolean,
+      default: false,
+    },
+    Memory: {
+      type: SchemaTypes.String,
+      trim: true,
+    },
+    Camera: {
+      type: SchemaTypes.String,
+      trim: true,
+    },
+    Battery: {
+      type: SchemaTypes.String,
+      trim: true,
+    },
   },
   { timestamps: true }
 );

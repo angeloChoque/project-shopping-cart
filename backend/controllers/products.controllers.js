@@ -50,11 +50,13 @@ export const DeleteProduct = async (req, res) => {
 
 export const GetProduct = async (req, res) => {
   try {
-    const Product = await Product.findById(req.params.id);
-    if (!Product) return res.sendStatus(404);
-    return res.json(Product);
+    const foundProduct = await Product.findById(req.params.id);
+    if (!foundProduct) {
+      return res.sendStatus(404);
+    }
+    return res.json(foundProduct);
   } catch (error) {
-    console.log(error);
-    return res.status(500).send("error!!");
+    console.error(error);
+    return res.status(500).send("Error fetching product");
   }
 };

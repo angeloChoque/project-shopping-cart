@@ -29,6 +29,9 @@ import { IoPhonePortrait } from "react-icons/io5";
 import { CiBatteryFull } from "react-icons/ci";
 import { IoIosFingerPrint } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getProductRequest } from "../api/products";
+import { useShoppingContext } from "../../context/shoppingContext";
 
 const labels = {
   0.5: "0.5",
@@ -46,23 +49,45 @@ const labels = {
 const InfoPage = () => {
   const value = 3.5;
   const [imageHeight, setImageHeight] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState([]);
+
+  const params = useParams();
+  const [products, setProducts] = useState([]);
   const imgRef = useRef(null);
+  const { product } = useShoppingContext();
 
   useEffect(() => {
     const handleResize = () => {
       const windowWidth = window.innerWidth;
-      // Adjust this ratio according to your image's aspect ratio
-      const aspectRatio = 16 / 9; // Example aspect ratio (width:height)
-      // Calculate the height based on a percentage of the window width
-      const calculatedWidth = Math.min(700, windowWidth * 0.8); // Max width of 700px or 80% of window width
+      const aspectRatio = 16 / 9;
+      const calculatedWidth = Math.min(700, windowWidth * 0.8);
       const calculatedHeight = calculatedWidth / aspectRatio;
       setImageHeight(calculatedHeight);
     };
-
-    handleResize(); // Initial call
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => {
+    if (params.id && product.length > 0) {
+      const selected = product.find(item => item._id === params.id);
+      setSelectedProduct(selected);
+    }
+  }, [params.id, product]);  
+
+  useEffect(() => {
+    if (params.id) {
+      getProductRequest(params.id)
+        .then((response) => {
+          setProducts(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching product:", error);
+        });
+    }
+  }, [params.id]);
+
 
   return (
     <Container>
@@ -74,7 +99,7 @@ const InfoPage = () => {
           <Link underline="hover" href="/">
             Phone
           </Link>
-          <Typography color="text.primary">Honor 50</Typography>
+          <Typography color="text.primary">{products.NameProduct}</Typography>
         </Breadcrumbs>
       </Box>
       <Paper sx={{ borderRadius: "12px", p: 2 }}>
@@ -84,7 +109,7 @@ const InfoPage = () => {
               <Grid item xs={12}>
                 <img
                   ref={imgRef}
-                  src="../../img_phone.jpg"
+                  src={`../../${selectedProduct.imageUrl}`}
                   style={{
                     maxWidth: "100%",
                     height: imageHeight,
@@ -108,29 +133,31 @@ const InfoPage = () => {
                           <FaMobileScreenButton
                             style={{ marginRight: 8, fontSize: "20px" }}
                           />
-                          <Typography>Brand : Honor</Typography>
+                          <Typography>{`Brand: ${products.Brand}`}</Typography>
                         </Box>
                         <Box display="flex" alignItems="center" mt={2}>
                           <IoHammerOutline style={{ marginRight: 8 }} />
-                          <Typography>material : titanium</Typography>
+                          <Typography>{`Material: ${products.Material}`}</Typography>
                         </Box>
                         <Box display="flex" alignItems="center" mt={2}>
                           <IoIosFingerPrint style={{ marginRight: 8 }} />
-                          <Typography>Fingerprint Sensor</Typography>
+                          <Typography>{`FingerprintSensor: ${
+                            products.FingerprintSensor ? "sí" : "no"
+                          }`}</Typography>
                         </Box>
                       </Grid>
                       <Grid item xs={12} xl={6}>
                         <Box display="flex" alignItems="center">
                           <MdOutlineMemory style={{ marginRight: 8 }} />
-                          <Typography>Memory : 256Gb</Typography>
+                          <Typography>{`Memory: ${products.Memory}`}</Typography>
                         </Box>
                         <Box display="flex" alignItems="center" mt={2}>
                           <IoPhonePortrait style={{ marginRight: 8 }} />
-                          <Typography>Camera : 18 Mpx</Typography>
+                          <Typography>{`Camera: ${products.Camera}`}</Typography>
                         </Box>
                         <Box display="flex" alignItems="center" mt={2}>
                           <CiBatteryFull style={{ marginRight: 8 }} />
-                          <Typography>Battery : 4300mAh</Typography>
+                          <Typography>{`Battery:  ${products.Battery}`}</Typography>
                         </Box>
                       </Grid>
                     </Grid>
@@ -144,19 +171,7 @@ const InfoPage = () => {
                   >
                     Description:
                   </AccordionSummary>
-                  <AccordionDetails>
-                    Honor 50 - Sleek Design, Powerful Performance. Upgrade your
-                    smartphone experience with the stunning Honor 50. Featuring
-                    a 6.57-inch curved OLED display with a 120Hz refresh rate,
-                    vibrant colors, and smooth visuals. Powered by the Qualcomm
-                    Snapdragon 778G processor for fast performance. Capture
-                    life&apos;s moments with the 108MP quad-camera system. The
-                    32MP front camera is perfect for high-quality selfies and
-                    video calls. With a 4300mAh battery and 66W fast charging,
-                    stay powered up all day. The Honor 50 boasts 8GB of RAM and
-                    128GB of storage, providing ample space for apps, photos,
-                    and videos.
-                  </AccordionDetails>
+                  <AccordionDetails>{products.Description}</AccordionDetails>
                 </Accordion>
               </Grid>
             </Grid>
@@ -170,7 +185,7 @@ const InfoPage = () => {
                       New | 40 sold
                     </Typography>
                     <Typography fontSize={"22px"} fontWeight={"bold"}>
-                      Honor 50 Phone - 50gb 8g ram Model :48l9mn
+                      {`${products.NameProduct} - ${products.characteristics}`}
                     </Typography>
                     <Box display={"flex"} alignItems={"center"}>
                       <Typography
@@ -205,7 +220,9 @@ const InfoPage = () => {
                       </Typography>
                     </Box>
                     <Box display={"flex"} alignItems={"center"}>
-                      <Typography fontSize={"36px"}>$/ 256</Typography>
+                      <Typography fontSize={"36px"}>
+                        {`$/${products.Price}`}
+                      </Typography>
                       <Typography fontSize={"18px"} color={"#00a650"} ml={1}>
                         34% OFF
                       </Typography>
