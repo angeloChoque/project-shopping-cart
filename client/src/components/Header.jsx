@@ -9,6 +9,8 @@ import {
   ListItemText,
   Menu,
   Typography,
+  IconButton,
+  Badge,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { ITEMS_HEADER } from "../data/Commons";
@@ -16,12 +18,15 @@ import { COLOR_1, COLOR_2 } from "../assets/color";
 import { CiSearch, CiShoppingCart, CiUser } from "react-icons/ci";
 import { IMG_1 } from "../assets/img";
 import MenuHeader from "./MenuHeader";
+import { useShoppingContext } from "../context/shoppingContext";
+import CartMenu from "./CartMenu";
 
 const Header = () => {
   const [anchorElFirst, setAnchorElFirst] = useState(null);
   const [currentMenuFirst, setCurrentMenuFirst] = useState(null);
   const [anchorElSecond, setAnchorElSecond] = useState(null);
   const [currentMenuSecond, setCurrentMenuSecond] = useState(null);
+  const { cartOpen, openCart, closeCart, cartItems } = useShoppingContext();
 
   const handleMouseEnterFirst = (event, menu) => {
     setAnchorElFirst(event.currentTarget);
@@ -42,6 +47,8 @@ const Header = () => {
     setAnchorElSecond(null);
     setCurrentMenuSecond(null);
   };
+
+  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <AppBar sx={{ bgcolor: "white" }} position="sticky">
@@ -191,11 +198,34 @@ const Header = () => {
           ))}
         </Stack>
         <Stack direction="row" spacing={2}>
-          <CiSearch size={30} color={COLOR_1} />
-          <CiShoppingCart size={30} color={COLOR_1} />
-          <CiUser size={30} color={COLOR_1} />
+          <IconButton
+            sx={{
+              color: COLOR_2,
+              fontSize: 17,
+            }}
+          >
+            <CiSearch size={30} color={COLOR_1} />
+          </IconButton>
+          <IconButton
+            onClick={openCart}
+            sx={{
+              color: COLOR_2,
+            }}
+          >
+            <Badge badgeContent={totalItems} color="primary">
+              <CiShoppingCart size={30} color={COLOR_1} />
+            </Badge>
+          </IconButton>
+          <IconButton
+            sx={{
+              color: COLOR_2,
+            }}
+          >
+            <CiUser size={30} color={COLOR_1} />
+          </IconButton>
         </Stack>
       </Toolbar>
+      <CartMenu anchorEl={null} isOpen={cartOpen} handleClose={closeCart} />
     </AppBar>
   );
 };

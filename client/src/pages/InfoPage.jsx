@@ -31,7 +31,7 @@ import { IoIosFingerPrint } from "react-icons/io";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProductRequest } from "../api/products";
-import { useShoppingContext } from "../../context/shoppingContext";
+import { useShoppingContext } from "../context/shoppingContext";
 
 const labels = {
   0.5: "0.5",

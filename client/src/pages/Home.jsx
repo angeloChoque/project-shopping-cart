@@ -14,17 +14,19 @@ import Carousels from "react-multi-carousel";
 import { useEffect, useState } from "react";
 import { getProductsRequest } from "../api/products";
 import { useNavigate } from "react-router-dom";
+import { useShoppingContext } from "../context/shoppingContext";
 
 const responsive = {
   superLargeDesktop: { breakpoint: { max: 4000, min: 3000 }, items: 5 },
   desktop: { breakpoint: { max: 3000, min: 1024 }, items: 3 },
-  tablet: { breakpoint: { max: 1024, min: 464 }, items: 2 },
-  mobile: { breakpoint: { max: 464, min: 0 }, items: 1 },
+  tablet: { breakpoint: { max: 1024, min: 500 }, items: 2 },
+  mobile: { breakpoint: { max: 500, min: 0 }, items: 1 },
 };
 
 const Home = () => {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
+  const { addToCart } = useShoppingContext();
 
   const imageUrls = {
     Smartphone: [
@@ -94,7 +96,11 @@ const Home = () => {
                 >
                   ${product.Price}
                 </Button>
-                <Button variant="contained" size="small">
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => addToCart(product)}
+                >
                   <ShoppingCartIcon />
                 </Button>
               </CardActions>
@@ -127,7 +133,11 @@ const Home = () => {
                 >
                   ${product.Price}
                 </Button>
-                <Button variant="contained" size="small">
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => addToCart(product)}
+                >
                   <ShoppingCartIcon />
                 </Button>
               </CardActions>
