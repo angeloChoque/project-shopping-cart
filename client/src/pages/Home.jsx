@@ -11,8 +11,6 @@ import Carousel from "../components/Carousel";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import "react-multi-carousel/lib/styles.css";
 import Carousels from "react-multi-carousel";
-import { useEffect, useState } from "react";
-import { getProductsRequest } from "../api/products";
 import { useNavigate } from "react-router-dom";
 import { useShoppingContext } from "../context/shoppingContext";
 
@@ -24,46 +22,14 @@ const responsive = {
 };
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
-  const { addToCart } = useShoppingContext();
+  const { addToCart, product } = useShoppingContext();
 
-  const imageUrls = {
-    Smartphone: [
-      "carousel3_responsive.jpg",
-      "carousel1_responsive.webp",
-      "img_phone.jpg",
-      "google_pixel.webp",
-    ],
-    Television: ["tv_1.png", "tv_2.jpg", "tv_3.png"],
-  };
-
-  useEffect(() => {
-    getProductsRequest()
-      .then((res) => {
-        const updatedProducts = res.data.map((product, index) => {
-          let imageUrl = "";
-          if (imageUrls[product.TypeProduct]) {
-            imageUrl =
-              imageUrls[product.TypeProduct][
-                index % imageUrls[product.TypeProduct].length
-              ];
-          }
-          return {
-            ...product,
-            imageUrl,
-          };
-        });
-        setProducts(updatedProducts);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
-  const smartphones = products.filter(
-    (product) => product.TypeProduct === "Smartphone"
+  const smartphones = product.filter(
+    (Product) => Product.TypeProduct === "Smartphone"
   );
-  const televisions = products.filter(
-    (product) => product.TypeProduct === "Television"
+  const televisions = product.filter(
+    (Product) => Product.TypeProduct === "Television"
   );
 
   return (
