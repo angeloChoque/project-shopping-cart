@@ -50,6 +50,7 @@ const InfoPage = () => {
   const value = 3.5;
   const [imageHeight, setImageHeight] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState([]);
+  const [selectedSize, setSelectedSize] = useState(""); 
 
   const params = useParams();
   const [products, setProducts] = useState([]);
@@ -71,10 +72,10 @@ const InfoPage = () => {
 
   useEffect(() => {
     if (params.id && product.length > 0) {
-      const selected = product.find(item => item._id === params.id);
+      const selected = product.find((item) => item._id === params.id);
       setSelectedProduct(selected);
     }
-  }, [params.id, product]);  
+  }, [params.id, product]);
 
   useEffect(() => {
     if (params.id) {
@@ -88,6 +89,9 @@ const InfoPage = () => {
     }
   }, [params.id]);
 
+  const handleSizeChange = (event) => {
+    setSelectedSize(event.target.value); // Actualiza el tamaño seleccionado
+  };
 
   return (
     <Container>
@@ -133,37 +137,37 @@ const InfoPage = () => {
                           <FaMobileScreenButton
                             style={{ marginRight: 8, fontSize: "20px" }}
                           />
-                          <Typography>{`Brand: ${products.Brand}`}</Typography>
+                          <Typography>Brand: {products.Brand}</Typography>
                         </Box>
                         <Box display="flex" alignItems="center" mt={2}>
                           <IoHammerOutline style={{ marginRight: 8 }} />
-                          <Typography>{`Material: ${products.Material}`}</Typography>
+                          <Typography>Material: {products.Material}</Typography>
                         </Box>
                         <Box display="flex" alignItems="center" mt={2}>
                           <IoIosFingerPrint style={{ marginRight: 8 }} />
-                          <Typography>{`FingerprintSensor: ${
-                            products.FingerprintSensor ? "sí" : "no"
-                          }`}</Typography>
+                          <Typography>
+                            FingerprintSensor:{" "}
+                            {products.FingerprintSensor ? "sí" : "no"}
+                          </Typography>
                         </Box>
                       </Grid>
                       <Grid item xs={12} xl={6}>
                         <Box display="flex" alignItems="center">
                           <MdOutlineMemory style={{ marginRight: 8 }} />
-                          <Typography>{`Memory: ${products.Memory}`}</Typography>
+                          <Typography>Memory: {products.Memory}</Typography>
                         </Box>
                         <Box display="flex" alignItems="center" mt={2}>
                           <IoPhonePortrait style={{ marginRight: 8 }} />
-                          <Typography>{`Camera: ${products.Camera}`}</Typography>
+                          <Typography>Camera: {products.Camera}</Typography>
                         </Box>
                         <Box display="flex" alignItems="center" mt={2}>
                           <CiBatteryFull style={{ marginRight: 8 }} />
-                          <Typography>{`Battery:  ${products.Battery}`}</Typography>
+                          <Typography>Battery: {products.Battery}</Typography>
                         </Box>
                       </Grid>
                     </Grid>
                   </AccordionDetails>
                 </Accordion>
-                {/* <Divider /> */}
                 <Accordion sx={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -185,7 +189,7 @@ const InfoPage = () => {
                       New | 40 sold
                     </Typography>
                     <Typography fontSize={"22px"} fontWeight={"bold"}>
-                      {`${products.NameProduct} - ${products.characteristics}`}
+                      {products.NameProduct} - {products.characteristics}
                     </Typography>
                     <Box display={"flex"} alignItems={"center"}>
                       <Typography
@@ -221,7 +225,7 @@ const InfoPage = () => {
                     </Box>
                     <Box display={"flex"} alignItems={"center"}>
                       <Typography fontSize={"36px"}>
-                        {`$/${products.Price}`}
+                        ${products.Price}
                       </Typography>
                       <Typography fontSize={"18px"} color={"#00a650"} ml={1}>
                         34% OFF
@@ -245,7 +249,6 @@ const InfoPage = () => {
                           <FaCcMastercard style={{ fontSize: "36px" }} />
                         </Stack>
                         <Link sx={{ textDecoration: "none" }} fontSize={"14px"}>
-                          {" "}
                           more information
                         </Link>
                       </Box>
@@ -254,27 +257,27 @@ const InfoPage = () => {
                       <Typography fontSize={"15px"}>
                         <strong style={{ color: "#00a650" }}>
                           Free shipping{" "}
-                        </strong>{" "}
+                        </strong>
                         nationwide
                       </Typography>
                       <Typography fontSize={"14px"} color={"rgba(0,0,0,.55)"}>
-                        know the times and ways of shipment.{" "}
+                        know the times and ways of shipment.
                       </Typography>
                       <Link sx={{ textDecoration: "none" }} fontSize={"15px"}>
-                        calculate when it arrives.{" "}
+                        calculate when it arrives.
                       </Link>
                     </Box>
                     <Box display={"flex"} flexDirection={"column"}>
                       <Typography fontSize={"15px"}>
                         <strong style={{ color: "#00a650" }}>
                           Free return{" "}
-                        </strong>{" "}
+                        </strong>
                       </Typography>
                       <Typography fontSize={"14px"} color={"rgba(0,0,0,.55)"}>
-                        You have 30 days from the time you receive it.{" "}
+                        You have 30 days from the time you receive it.
                       </Typography>
                       <Link sx={{ textDecoration: "none" }} fontSize={"15px"}>
-                        learn more.{" "}
+                        learn more.
                       </Link>
                     </Box>
                     <Typography fontSize={18} py={3}>
@@ -283,8 +286,7 @@ const InfoPage = () => {
                     <Box display={"flex"}>
                       <Typography fontSize={18}>sizes:</Typography>
                       <strong style={{ marginLeft: 8, fontSize: 18 }}>
-                        {" "}
-                        47
+                        {selectedSize || "None"}{" "}
                       </strong>
                     </Box>
                     <FormControl sx={{ py: 3 }} fullWidth>
@@ -292,13 +294,15 @@ const InfoPage = () => {
                         labelId="select-size-label"
                         fullWidth
                         sx={{ borderRadius: ".375em" }}
+                        value={selectedSize}
+                        onChange={handleSizeChange} 
                       >
                         <MenuItem value="">
                           <em>None</em>
                         </MenuItem>
-                        <MenuItem value={10}>Small</MenuItem>
-                        <MenuItem value={20}>Medium</MenuItem>
-                        <MenuItem value={30}>Large</MenuItem>
+                        <MenuItem value="Small">Small</MenuItem>
+                        <MenuItem value="Medium">Medium</MenuItem>
+                        <MenuItem value="Large">Large</MenuItem>
                       </Select>
                       <Box mt={1} display={"flex"}>
                         <FaMobileScreenButton />
