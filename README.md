@@ -1,4 +1,4 @@
-# Shopping Cart - Project XYZ
+# Shopping Cart - Project Shopping Cart
 
 This project implements an interactive shopping cart using modern web technologies. It allows users to select products, add them to the cart, and make purchases intuitively.
 
@@ -19,6 +19,6 @@ This project implements an interactive shopping cart using modern web technologi
 
 ## Installation
 
-1. Clone this repository: `git clone https://github.com/your_username/repository_name.git`
+1. Clone this repository: `https://github.com/angeloChoque/project-shopping-cart.git`
 2. Install dependencies: `npm install`
-3. Start the application: `npm start`
+3. Start the application: `npm run dev`
