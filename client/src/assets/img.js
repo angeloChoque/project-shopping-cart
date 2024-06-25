@@ -1,1 +1,1 @@
-export const IMG_1 = "../../../logo2.png"
+export const IMG_1 = "logo2.png"

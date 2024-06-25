@@ -7,12 +7,12 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 const Carousel = () => {
   const matches = useMediaQuery("(max-width:600px)");
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = ["../../carousel1.webp", "../../carousel2.webp", "../../carousel3.webp",
+  const images = ["carousel1.webp", "carousel2.webp", "carousel3.webp",
   ];
   const imagesResponsive = [
-    "../../carousel1_responsive.webp",
-    "../../carousel2_responsive.webp",
-    "../../carousel3_responsive.jpg",
+    "carousel1_responsive.webp",
+    "carousel2_responsive.webp",
+    "carousel3_responsive.jpg",
   ];
 
   const nextImage = () => {

@@ -90,7 +90,7 @@ const InfoPage = () => {
   }, [params.id]);
 
   const handleSizeChange = (event) => {
-    setSelectedSize(event.target.value); // Actualiza el tamaño seleccionado
+    setSelectedSize(event.target.value);
   };
 
   return (
@@ -113,7 +113,7 @@ const InfoPage = () => {
               <Grid item xs={12}>
                 <img
                   ref={imgRef}
-                  src={`../../${selectedProduct.imageUrl}`}
+                  src={selectedProduct.imageUrl}
                   style={{
                     maxWidth: "100%",
                     height: imageHeight,
