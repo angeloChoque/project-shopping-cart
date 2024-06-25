@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Button,
   Card,
@@ -41,7 +42,10 @@ const Home = () => {
         </Typography>
         <Carousels responsive={responsive}>
           {smartphones.map((product) => (
-            <Card key={product._id} sx={{ maxWidth: 350 }}>
+            <Card
+              key={product._id}
+              sx={{ maxWidth: 350, margin: "auto", mb: 4 }}
+            >
               <CardMedia
                 sx={{ height: 300 }}
                 image={product.imageUrl}
@@ -55,7 +59,7 @@ const Home = () => {
                   {product.characteristics}
                 </Typography>
               </CardContent>
-              <CardActions sx={{ justifyContent: "end" }}>
+              <CardActions sx={{ justifyContent: "flex-end" }}>
                 <Button
                   variant="contained"
                   onClick={() => navigate(`/info/${product._id}`)}
@@ -74,11 +78,14 @@ const Home = () => {
           ))}
         </Carousels>
         <Typography variant="h4" my={5}>
-          TV´s
+          TVs
         </Typography>
         <Carousels responsive={responsive} swipeable>
           {televisions.map((product) => (
-            <Card key={product._id} sx={{ maxWidth: 350 }}>
+            <Card
+              key={product._id}
+              sx={{ maxWidth: 350, margin: "auto", mb: 4 }}
+            >
               <CardMedia
                 sx={{ height: 300 }}
                 image={product.imageUrl}
@@ -92,7 +99,7 @@ const Home = () => {
                   {product.characteristics}
                 </Typography>
               </CardContent>
-              <CardActions sx={{ justifyContent: "end" }}>
+              <CardActions sx={{ justifyContent: "flex-end" }}>
                 <Button
                   variant="contained"
                   onClick={() => navigate(`/info/${product._id}`)}
