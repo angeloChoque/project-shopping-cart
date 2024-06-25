@@ -60,6 +60,7 @@ const ShoppingContext = ({ children }) => {
         return [...prevItems, { ...product, quantity: 1 }];
       }
     });
+    openCart();
   };
 
   const incrementQuantity = (productId) => {

@@ -48,7 +48,10 @@ const Header = () => {
     setCurrentMenuSecond(null);
   };
 
-  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const totalItems = cartItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  );
 
   return (
     <AppBar sx={{ bgcolor: "white" }} position="sticky">

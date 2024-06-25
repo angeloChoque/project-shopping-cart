@@ -55,7 +55,7 @@ const InfoPage = () => {
   const params = useParams();
   const [products, setProducts] = useState([]);
   const imgRef = useRef(null);
-  const { product } = useShoppingContext();
+  const { product, addToCart } = useShoppingContext();
 
   useEffect(() => {
     const handleResize = () => {
@@ -123,7 +123,7 @@ const InfoPage = () => {
               </Grid>
               <Divider sx={{ mt: 5 }} />
               <Grid item xs={12}>
-                <Accordion sx={{ boxShadow: "none" }}>
+                <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     sx={{ fontSize: "1.2rem" }}
@@ -168,7 +168,7 @@ const InfoPage = () => {
                     </Grid>
                   </AccordionDetails>
                 </Accordion>
-                <Accordion sx={{ boxShadow: "none" }}>
+                <Accordion defaultExpanded sx={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     sx={{ fontSize: "1.2rem" }}
@@ -314,6 +314,7 @@ const InfoPage = () => {
                     <Button
                       variant="contained"
                       sx={{ py: 1.5, textTransform: "none" }}
+                      onClick={() => addToCart(selectedProduct)}
                     >
                       Buy Now
                     </Button>
