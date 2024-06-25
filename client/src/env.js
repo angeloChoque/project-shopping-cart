@@ -1,5 +1,5 @@
 const prod = {
-    API_URL: "https://project-shopping-cart-7fuw.onrender.com/",
+    API_URL: "https://project-shopping-cart-7fuw.onrender.com",
   }
   
   const dev = {
