@@ -51,9 +51,8 @@ const InfoPage = () => {
   const [imageHeight, setImageHeight] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [selectedSize, setSelectedSize] = useState(""); 
-
-  const params = useParams();
   const [products, setProducts] = useState([]);
+  const params = useParams();
   const imgRef = useRef(null);
   const { product, addToCart } = useShoppingContext();
 
