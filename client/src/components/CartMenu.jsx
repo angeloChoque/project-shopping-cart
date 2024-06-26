@@ -29,7 +29,7 @@ const CartMenu = ({ anchorEl, isOpen, handleClose }) => {
         "& .MuiPaper-root": {
           borderRadius: 0,
           width: "330px",
-          marginTop: "60px",
+          marginTop: "90px",
         },
       }}
     >
