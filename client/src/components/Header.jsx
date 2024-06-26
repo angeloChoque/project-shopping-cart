@@ -55,9 +55,9 @@ const Header = () => {
 
   return (
     <AppBar sx={{ bgcolor: "white" }} position="sticky">
-      <Stack sx={{bgcolor:COLOR_2}}>
+      <Stack sx={{ bgcolor: COLOR_2 }}>
         <Typography textAlign={"center"} pb={0.5} fontSize={18} color={"white"}>
-        Please wait while the database loads. This process could take between 2 to 3 minutes.
+          Wait for the API response. This may take 2 to 3 minutes.{" "}
         </Typography>
       </Stack>
       <Toolbar>
