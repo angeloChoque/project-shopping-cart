@@ -1,5 +1,6 @@
 import Product from "../models/products.js";
-// products
+
+
 export const GetProducts = async (req, res) => {
   try {
     const products = await Product.find();
@@ -20,7 +21,7 @@ export const CreateProduct = async (req, res) => {
     return res.status(500).send("error!!");
   }
 };
-// employee/:id = params
+
 export const UpdateProduct = async (req, res) => {
   try {
     const UpdateProduct = await Product.findByIdAndUpdate(
