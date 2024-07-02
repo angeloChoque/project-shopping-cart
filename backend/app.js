@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import cookieParser from 'cookie-parser'
 import ProductRoutes from './routers/products.routes.js'
 import authRoutes from './routers/users.routes.js'
 
@@ -9,10 +10,11 @@ const corsOptions = {
   origin: "*",
 };
 
+app.use(cookieParser())
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(ProductRoutes)
 app.use("/api",authRoutes)
+app.use("/api",ProductRoutes)
 
 
 export default app;
