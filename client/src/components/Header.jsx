@@ -20,10 +20,11 @@ import { IMG_1 } from "../assets/img";
 import MenuHeader from "./MenuHeader";
 import { useShoppingContext } from "../context/shoppingContext";
 import CartMenu from "./CartMenu";
+import MenuLogin from "./MenuLogin";
 
 const Header = () => {
   const [anchorElFirst, setAnchorElFirst] = useState(null);
-  const [currentMenuFirst, setCurrentMenuFirst] = useState(null);
+  const [currentMenuFirst, setCurrentMenuFirst] = useState("");
   const [anchorElSecond, setAnchorElSecond] = useState(null);
   const [currentMenuSecond, setCurrentMenuSecond] = useState(null);
   const { cartOpen, openCart, closeCart, cartItems } = useShoppingContext();
@@ -179,7 +180,7 @@ const Header = () => {
                   },
                   "& .MuiBackdrop-root": {
                     backgroundColor: "rgba(0, 0, 0, 0.5)",
-                    top: "98px",
+                    top: "128px",
                   },
                 }}
                 MenuListProps={{
@@ -224,13 +225,7 @@ const Header = () => {
               <CiShoppingCart size={30} color={COLOR_1} />
             </Badge>
           </IconButton>
-          <IconButton
-            sx={{
-              color: COLOR_2,
-            }}
-          >
-            <CiUser size={30} color={COLOR_1} />
-          </IconButton>
+          <MenuLogin/>
         </Stack>
       </Toolbar>
       <CartMenu anchorEl={null} isOpen={cartOpen} handleClose={closeCart} />

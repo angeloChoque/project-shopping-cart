@@ -3,7 +3,7 @@ const prod = {
   }
   
   const dev = {
-    API_URL: "http://localhost:5001",
+    API_URL: "http://localhost:5001/api",
   }
   
   export const config = process.env.NODE_ENV === "development" ? dev : prod

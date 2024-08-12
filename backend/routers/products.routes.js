@@ -7,11 +7,11 @@ import {
     UpdateProduct,
   } from "../controllers/products.controllers.js";
 import { PRODUCTS_ROUTE } from "./router.map.js";
-import { authRequired } from "../middleware/validateToken.js";
+// import { authRequired } from "../middleware/validateToken.js";
 
 const router = Router();
 
-router.get(PRODUCTS_ROUTE,authRequired, GetProducts);
+router.get(PRODUCTS_ROUTE, GetProducts);
 
 router.post(PRODUCTS_ROUTE, CreateProduct);
 

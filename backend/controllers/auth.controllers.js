@@ -4,11 +4,18 @@ import jwt from "jsonwebtoken";
 
 export const register = async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const { email, password, userName } = req.body;
+
+    const userFound = await User.findOne({ email });
+    if (userFound)
+      return res.status(400).json({ message: "The email is already in use" });
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
-      ...req.body,
+      email,
       password: hashedPassword,
+      userName,
     });
 
     await newUser.save();
@@ -72,9 +79,30 @@ export const logout = (req, res) => {
   });
   return res.sendStatus(200);
 };
+export const verifyToken = async (req, res) => {
+  const { token } = req.cookies;
+  if (!token) return res.send(false); 
 
-export const profile = async(req, res) => {
+  jwt.verify(token, process.env.JWT_SECRET, async (error, decoded) => {
+    if (error) return res.sendStatus(401);
+    try {
+      const userFound = await User.findById(decoded.id);
+      if (!userFound) return res.sendStatus(401); 
+
+      return res.json({
+        id: userFound._id,
+        username: userFound.userName,
+        email: userFound.email,
+      });
+    } catch (error) {
+      console.error('Error al buscar usuario:', error);
+      return res.sendStatus(500);
+    }
+  });
+};
+
+export const profile = async (req, res) => {
   const userFound = await User.findById(req.user.id);
   if (!userFound) return res.status(400).json({ message: "User not found " });
-  return res.json(userFound)
+  return res.json(userFound);
 };

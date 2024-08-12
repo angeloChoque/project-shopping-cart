@@ -9,7 +9,7 @@ import {
   IconButton,
   Button,
   Box,
-  Typography
+  Typography,
 } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
 import { useShoppingContext } from "../context/shoppingContext";
@@ -27,9 +27,24 @@ const CartMenu = ({ anchorEl, isOpen, handleClose }) => {
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
       sx={{
         "& .MuiPaper-root": {
-          borderRadius: 0,
+          borderRadius: 1,
           width: "330px",
-          marginTop: "90px",
+          marginTop: 2,
+          marginTop:"90px",
+          // overflow: "visible",
+          // filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+          // "&::before": {
+          //   content: '""',
+          //   display: "block",
+          //   position: "absolute",
+          //   top: 3,
+          //   left:220,
+          //   width: 10,
+          //   height: 10,
+          //   bgcolor: "background.paper",
+          //   transform: "translateY(-50%) rotate(45deg)",
+          //   zIndex: 0,
+          // },
         },
       }}
     >
